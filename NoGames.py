@@ -1,5 +1,6 @@
 import webbrowser, psutil
 
+#List of blocked programs
 prog_list = []
 
 file = open("Exes.txt", "r")
