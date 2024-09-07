@@ -1,72 +1,31 @@
 import webbrowser, psutil
 
-#List of blocked programs
-prog_list = []
+# List of blocked programs
+program_list = []
 
-file = open("Exes.txt", "r")
 
-for line in file:
-    prog_list.append(line.strip())
+# Append to the list of blocked programs
+with open("Exes.txt", "r") as file:
+    for line in file:
+        program_list.append(line.strip())
 
-exe = False
 
-def open_browser():
-    webbrowser.open_new("https://i.pinimg.com/736x/5c/b7/37/5cb737b195f6cc3c3e3a0e53e5aaab99.jpg")
+# Open the blocker image in a browser
+def open_blocker_image():
+    webbrowser.open_new(
+        "https://i.pinimg.com/736x/5c/b7/37/5cb737b195f6cc3c3e3a0e53e5aaab99.jpg"
+    )
 
+
+# Kill process
 def kill_process():
-    global exe
+    for process in psutil.process_iter():
+        if process.name() in program_list:
+            process.kill()
+            open_blocker_image()
+            break
 
-    for process in (process for process in psutil.process_iter() if process.name() in prog_list):
-        exe = True
-        process.kill()
 
-    if exe:
-        open_browser()
-    
-    exe = False
-
+# Constant scanning
 while True:
-
     kill_process()
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
